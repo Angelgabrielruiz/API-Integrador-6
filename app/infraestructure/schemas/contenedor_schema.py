@@ -20,7 +20,8 @@ class ContenedorUpdate(BaseModel):
     capacidad_maxima: Optional[float] = None
     cantidad_actual: Optional[float] = None
     temperatura: Optional[float] = None
-
+class TemperaturaUpdate(BaseModel):
+    temperatura: float
 
 class DispensarRequest(BaseModel):
     id_maquina: int

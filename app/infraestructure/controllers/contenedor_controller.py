@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 from app.application.useCase.contenedor_usecase import ContenedorUseCase
-from app.infraestructure.schemas.contenedor_schema import ContenedorCreate, ContenedorSchema, ContenedorUpdate, DispensarRequest
+from app.infraestructure.schemas.contenedor_schema import ContenedorCreate, ContenedorSchema, ContenedorUpdate, DispensarRequest, TemperaturaUpdate
 from app.dependencies import get_contenedor_use_case # This will be created in the next step
 
 router = APIRouter()
@@ -64,13 +64,13 @@ def delete_contenedor(
 @router.put("/{contenedor_id}/temperatura", response_model=ContenedorSchema)
 def actualizar_temperatura(
     contenedor_id: int,
-    temperatura_data: dict,  # Cambiar para recibir JSON body
+    temperatura_data: TemperaturaUpdate,  # Usar el esquema importado
     use_case: ContenedorUseCase = Depends(get_contenedor_use_case)
 ):
     contenedor = use_case.get_contenedor_by_id(contenedor_id)
     if not contenedor:
         raise HTTPException(status_code=404, detail="Contenedor no encontrado")
     
-    # Usar ContenedorUpdate para la actualización
-    update_data = ContenedorUpdate(temperatura=temperatura_data.get('temperatura'))
+    update_data = ContenedorUpdate(temperatura=temperatura_data.temperatura)
     return use_case.update_contenedor(contenedor_id, update_data)
+from app.infraestructure.schemas.contenedor_schema import ContenedorCreate, ContenedorSchema, ContenedorUpdate, DispensarRequest, TemperaturaUpdate
