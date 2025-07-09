@@ -16,6 +16,11 @@ from app.infraestructure.adapters.contenedor_postgres_repository import Contened
 from app.domain.repositories.contenedor_repository import IContenedorRepository
 from app.application.useCase.contenedor_usecase import ContenedorUseCase
 
+# Importaciones para SensorReading
+from app.infraestructure.adapters.sensor_reading_postgres_repository import SensorReadingPostgresRepository
+from app.domain.repositories.sensor_reading_repository import ISensorReadingRepository
+from app.application.useCase.sensor_usecase import SensorUseCase
+
 def get_db_session():
     db = database.SessionLocal()
     try:
@@ -44,3 +49,11 @@ def get_contenedor_repository(db: Session = Depends(get_db_session)) -> IContene
 
 def get_contenedor_use_case(repo: IContenedorRepository = Depends(get_contenedor_repository)) -> ContenedorUseCase:
     return ContenedorUseCase(repo)
+
+# --- Dependencias para SensorReading ---
+
+def get_sensor_reading_repository(db: Session = Depends(get_db_session)) -> ISensorReadingRepository:
+    return SensorReadingPostgresRepository(db)
+
+def get_sensor_use_case(repo: ISensorReadingRepository = Depends(get_sensor_reading_repository)) -> SensorUseCase:
+    return SensorUseCase(repo)

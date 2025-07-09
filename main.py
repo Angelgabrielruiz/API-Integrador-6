@@ -6,6 +6,7 @@ from app.infraestructure import routes
 from app.domain.entities.maquina import Maquina
 from app.domain.entities.producto import Producto # Ensure Producto is also imported
 from app.domain.entities.contenedor import Contenedor # <-- ADD THIS LINE
+from app.domain.entities.sensor_reading import SensorReading # <-- ADD THIS LINE
 
 # Crea las tablas en la base de datos al iniciar (si no existen)
 database.create_db_and_tables()
