@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware # Importar CORSMiddleware
 
 # Importaciones de la Arquitectura
 from app.core import db_postgresql as database
@@ -14,6 +15,17 @@ database.create_db_and_tables()
 app = FastAPI(
     title="API Nutribox",
     version="1.0.0"
+)
+
+# --- Configuración de CORS ---
+# Permitir todos los orígenes, métodos y cabeceras para desarrollo.
+# En producción, deberías restringir esto a los dominios conocidos.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todas las fuentesA
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos
+    allow_headers=["*"],  # Permite todas las cabeceras
 )
 
 # --- Inclusión de Rutas ---
