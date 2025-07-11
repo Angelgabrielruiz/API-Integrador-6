@@ -1,13 +1,16 @@
+from app.infraestructure.websocket.manager import websocket_manager
+
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware # Importar CORSMiddleware
+from fastapi import WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 
 # Importaciones de la Arquitectura
 from app.core import db_postgresql as database
 from app.infraestructure import routes
 from app.domain.entities.maquina import Maquina
-from app.domain.entities.producto import Producto # Ensure Producto is also imported
-from app.domain.entities.contenedor import Contenedor # <-- ADD THIS LINE
-from app.domain.entities.sensor_reading import SensorReading # <-- ADD THIS LINE
+from app.domain.entities.producto import Producto
+from app.domain.entities.contenedor import Contenedor
+from app.domain.entities.sensor_reading import SensorReading
 
 # Crea las tablas en la base de datos al iniciar (si no existen)
 database.create_db_and_tables()
@@ -18,14 +21,12 @@ app = FastAPI(
 )
 
 # --- Configuración de CORS ---
-# Permitir todos los orígenes, métodos y cabeceras para desarrollo.
-# En producción, deberías restringir esto a los dominios conocidos.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Permite todas las fuentesA
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Permite todos los métodos
-    allow_headers=["*"],  # Permite todas las cabeceras
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # --- Inclusión de Rutas ---
@@ -34,3 +35,13 @@ app.include_router(routes.api_router, prefix="/api/v1")
 @app.get("/")
 def read_root():
     return {"status": "API Nutribox is running!"}
+
+@app.websocket("/ws/sensores")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket_manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await websocket_manager.broadcast(data)
+    except WebSocketDisconnect:
+        websocket_manager.disconnect(websocket)
