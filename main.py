@@ -11,6 +11,10 @@ from app.domain.entities.maquina import Maquina
 from app.domain.entities.producto import Producto
 from app.domain.entities.contenedor import Contenedor
 from app.domain.entities.sensor_reading import SensorReading
+from app.domain.entities.usuario import Usuario  # Nueva entidad
+
+# Importar controlador de auth
+from app.infraestructure.controllers import auth_controller
 
 # Crea las tablas en la base de datos al iniciar (si no existen)
 database.create_db_and_tables()
@@ -31,6 +35,7 @@ app.add_middleware(
 
 # --- Inclusión de Rutas ---
 app.include_router(routes.api_router, prefix="/api/v1")
+app.include_router(auth_controller.router, prefix="/api/v1/auth", tags=["authentication"])  # Nueva ruta
 
 @app.get("/")
 def read_root():

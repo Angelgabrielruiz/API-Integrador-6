@@ -1,5 +1,6 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
+from app.core.database_deps import get_db_session  # Agregar esta línea
 
 from app.core import db_postgresql as database
 from app.infraestructure.adapters.producto_postgres_repository import ProductoPostgresRepository
@@ -21,12 +22,10 @@ from app.infraestructure.adapters.sensor_reading_postgres_repository import Sens
 from app.domain.repositories.sensor_reading_repository import ISensorReadingRepository
 from app.application.useCase.sensor_usecase import SensorUseCase
 
-def get_db_session():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# Importaciones para Usuario y Auth
+from app.infraestructure.adapters.usuario_postgres_repository import UsuarioPostgresRepository
+from app.domain.repositories.usuario_repository import IUsuarioRepository
+from app.application.useCase.auth_usecase import AuthUseCase
 
 def get_producto_repository(db: Session = Depends(get_db_session)) -> IProductoRepository:
     return ProductoPostgresRepository(db)
@@ -57,3 +56,11 @@ def get_sensor_reading_repository(db: Session = Depends(get_db_session)) -> ISen
 
 def get_sensor_use_case(repo: ISensorReadingRepository = Depends(get_sensor_reading_repository)) -> SensorUseCase:
     return SensorUseCase(repo)
+
+# --- Dependencias para Usuario y Auth ---
+
+def get_usuario_repository(db: Session = Depends(get_db_session)) -> IUsuarioRepository:
+    return UsuarioPostgresRepository(db)
+
+def get_auth_use_case(repo: IUsuarioRepository = Depends(get_usuario_repository)) -> AuthUseCase:
+    return AuthUseCase(repo)
