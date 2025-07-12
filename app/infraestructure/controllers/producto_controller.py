@@ -17,11 +17,11 @@ def create_producto(
 ):
     return use_case.create_producto(producto_data=producto)
 
-# Clientes y administradores pueden ver productos
+# Clientes y administradores pueden ver productos (DESPROTEGIDO)
 @router.get("/", response_model=List[ProductoSchema])
 def get_all_productos(
-    use_case: ProductoUseCase = Depends(get_producto_use_case),
-    current_user: Usuario = Depends(require_client_or_admin)  # Cliente o admin
+    use_case: ProductoUseCase = Depends(get_producto_use_case)
+    # Remover: current_user: Usuario = Depends(require_client_or_admin)
 ):
     return use_case.get_all_productos()
 
@@ -29,6 +29,7 @@ def get_all_productos(
 def get_producto(
     producto_id: int, 
     use_case: ProductoUseCase = Depends(get_producto_use_case)
+    # Mantener sin protección
 ):
     producto = use_case.get_producto_by_id(producto_id)
     if not producto:
@@ -39,7 +40,8 @@ def get_producto(
 def update_producto(
     producto_id: int, 
     producto_data: ProductoUpdate, 
-    use_case: ProductoUseCase = Depends(get_producto_use_case)
+    use_case: ProductoUseCase = Depends(get_producto_use_case),
+    current_user: Usuario = Depends(require_admin)  # Agregar protección admin
 ):
     updated_producto = use_case.update_producto(producto_id, producto_data)
     if not updated_producto:
@@ -49,7 +51,8 @@ def update_producto(
 @router.delete("/{producto_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_producto(
     producto_id: int, 
-    use_case: ProductoUseCase = Depends(get_producto_use_case)
+    use_case: ProductoUseCase = Depends(get_producto_use_case),
+    current_user: Usuario = Depends(require_admin)  # Agregar protección admin
 ):
     deleted = use_case.delete_producto(producto_id)
     if not deleted:
