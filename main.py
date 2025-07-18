@@ -11,7 +11,7 @@ from app.domain.entities.maquina import Maquina
 from app.domain.entities.producto import Producto
 from app.domain.entities.contenedor import Contenedor
 from app.domain.entities.sensor_reading import SensorReading
-from app.domain.entities.usuario import Usuario  # Nueva entidad
+from app.domain.entities.usuario import Usuario
 
 # Importar controlador de auth
 from app.infraestructure.controllers import auth_controller
