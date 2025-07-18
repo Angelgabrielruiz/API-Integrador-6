@@ -6,10 +6,13 @@ class ProductoBase(BaseModel):
     nombre: str
     precio: float
     descripcion: Optional[str] = None
+    url_imagen: Optional[str] = None
 
-# Propiedades para recibir en la creación
-class ProductoCreate(ProductoBase):
-    pass
+# Propiedades para recibir en la creación (sin imagen, se maneja por separado)
+class ProductoCreate(BaseModel):
+    nombre: str
+    precio: float
+    descripcion: Optional[str] = None
 
 # Propiedades para recibir en la actualización (todos los campos son opcionales)
 class ProductoUpdate(BaseModel):

@@ -13,7 +13,7 @@ from app.domain.entities.contenedor import Contenedor
 from app.domain.entities.sensor_reading import SensorReading
 from app.domain.entities.usuario import Usuario
 
-# Importar controlador de auth
+
 from app.infraestructure.controllers import auth_controller
 
 # Crea las tablas en la base de datos al iniciar (si no existen)
