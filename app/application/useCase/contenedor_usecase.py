@@ -18,6 +18,9 @@ class ContenedorUseCase:
         contenedor = Contenedor(**contenedor_data.dict())
         return self.contenedor_repository.save(contenedor)
 
+    def get_contenedor_by_maquina_and_producto(self, maquina_id: int, producto_id: int) -> Optional[Contenedor]:
+        return self.contenedor_repository.find_by_maquina_and_producto(maquina_id, producto_id)
+
     def dispensar_producto(self, dispensar_data: DispensarRequest) -> Optional[Contenedor]:
         contenedor = self.contenedor_repository.find_by_maquina_and_producto(
             maquina_id=dispensar_data.id_maquina,
