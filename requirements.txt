@@ -10,3 +10,4 @@ email-validator
 python-dotenv
 cloudinary
 python-multipart
+paho-mqtt
