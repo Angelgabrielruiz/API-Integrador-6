@@ -26,6 +26,10 @@ from app.application.useCase.sensor_usecase import SensorUseCase
 from app.infraestructure.adapters.usuario_postgres_repository import UsuarioPostgresRepository
 from app.domain.repositories.usuario_repository import IUsuarioRepository
 from app.application.useCase.auth_usecase import AuthUseCase
+# Importaciones para Venta
+from app.infraestructure.adapters.venta_postgres_repository import VentaPostgresRepository
+from app.domain.repositories.venta_repository import IVentaRepository
+from app.application.useCase.venta_usecase import VentaUseCase
 
 def get_producto_repository(db: Session = Depends(get_db_session)) -> IProductoRepository:
     return ProductoPostgresRepository(db)
@@ -64,3 +68,8 @@ def get_usuario_repository(db: Session = Depends(get_db_session)) -> IUsuarioRep
 
 def get_auth_use_case(repo: IUsuarioRepository = Depends(get_usuario_repository)) -> AuthUseCase:
     return AuthUseCase(repo)
+
+def get_venta_use_case(session: Session = Depends(get_db_session)) -> VentaUseCase:
+    venta_repository: IVentaRepository = VentaPostgresRepository(session)
+    producto_repository: IProductoRepository = ProductoPostgresRepository(session)
+    return VentaUseCase(venta_repository, producto_repository)
