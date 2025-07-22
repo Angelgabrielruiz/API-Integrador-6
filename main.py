@@ -13,7 +13,7 @@ from app.domain.entities.contenedor import Contenedor
 from app.domain.entities.sensor_reading import SensorReading
 from app.domain.entities.usuario import Usuario
 from app.domain.entities.venta import Venta  # Agregar esta línea
-
+from app.domain.entities.balance import Balance  # NUEVO
 
 from app.infraestructure.controllers import auth_controller
 

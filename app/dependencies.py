@@ -31,6 +31,17 @@ from app.infraestructure.adapters.venta_postgres_repository import VentaPostgres
 from app.domain.repositories.venta_repository import IVentaRepository
 from app.application.useCase.venta_usecase import VentaUseCase
 
+# --- Dependencias para Balance ---
+from app.domain.repositories.balance_repository import IBalanceRepository
+from app.infraestructure.adapters.balance_postgres_repository import BalancePostgresRepository
+from app.application.useCase.balance_usecase import BalanceUseCase
+
+def get_balance_repository(db: Session = Depends(get_db_session)) -> IBalanceRepository:
+    return BalancePostgresRepository(db)
+
+def get_balance_use_case(repo: IBalanceRepository = Depends(get_balance_repository)) -> BalanceUseCase:
+    return BalanceUseCase(repo)
+
 def get_producto_repository(db: Session = Depends(get_db_session)) -> IProductoRepository:
     return ProductoPostgresRepository(db)
 
