@@ -32,3 +32,8 @@ class IVentaRepository(ABC):
     @abstractmethod
     def get_total_ventas_por_maquina(self, maquina_id: int) -> float:
         pass
+    
+    # NUEVO: Método para eliminar ventas por producto
+    @abstractmethod
+    def delete_ventas_por_producto(self, producto_id: int) -> int:
+        pass

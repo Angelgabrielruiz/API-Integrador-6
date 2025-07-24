@@ -45,8 +45,10 @@ def get_balance_use_case(repo: IBalanceRepository = Depends(get_balance_reposito
 def get_producto_repository(db: Session = Depends(get_db_session)) -> IProductoRepository:
     return ProductoPostgresRepository(db)
 
-def get_producto_use_case(repo: IProductoRepository = Depends(get_producto_repository)) -> ProductoUseCase:
-    return ProductoUseCase(repo)
+def get_producto_use_case(session: Session = Depends(get_db_session)) -> ProductoUseCase:  # MODIFICADO
+    producto_repository: IProductoRepository = ProductoPostgresRepository(session)
+    venta_repository: IVentaRepository = VentaPostgresRepository(session)  # NUEVO
+    return ProductoUseCase(producto_repository, venta_repository)  # MODIFICADO
 
 # --- Dependencias para Maquina ---
 

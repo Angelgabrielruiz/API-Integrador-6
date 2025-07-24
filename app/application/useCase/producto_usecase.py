@@ -1,13 +1,15 @@
 from typing import List, Optional
 from app.domain.repositories.product_repository import IProductoRepository
+from app.domain.repositories.venta_repository import IVentaRepository  # NUEVO
 from app.domain.entities.producto import Producto
 from app.infraestructure.schemas.producto_schema import ProductoCreate, ProductoUpdate
 from app.infraestructure.services.cloudinary_service import CloudinaryService
 
 class ProductoUseCase:
     
-    def __init__(self, producto_repository: IProductoRepository):
+    def __init__(self, producto_repository: IProductoRepository, venta_repository: IVentaRepository = None):  # MODIFICADO
         self.producto_repository = producto_repository
+        self.venta_repository = venta_repository  # NUEVO
         self.cloudinary_service = CloudinaryService()
 
     def get_all_productos(self) -> List[Producto]:
@@ -60,10 +62,16 @@ class ProductoUseCase:
     def delete_producto(self, producto_id: int) -> bool:
         producto = self.producto_repository.find_by_id(producto_id)
         if producto:
+            # NUEVO: Eliminar todas las ventas asociadas al producto ANTES de eliminar el producto
+            if self.venta_repository:
+                ventas_eliminadas = self.venta_repository.delete_ventas_por_producto(producto_id)
+                print(f"Se eliminaron {ventas_eliminadas} ventas asociadas al producto '{producto.nombre}'")
+            
             # Eliminar imagen de Cloudinary si existe
             if producto.public_id_imagen:
                 self.cloudinary_service.delete_image(producto.public_id_imagen)
             
+            # Finalmente eliminar el producto
             self.producto_repository.delete(producto_id)
             return True
         return False

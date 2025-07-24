@@ -38,3 +38,9 @@ class VentaPostgresRepository(IVentaRepository):
             Venta.id_maquina == maquina_id
         ).scalar()
         return result or 0.0
+    
+    # NUEVO: Implementación para eliminar ventas por producto
+    def delete_ventas_por_producto(self, producto_id: int) -> int:
+        ventas_eliminadas = self.session.query(Venta).filter(Venta.id_producto == producto_id).delete()
+        self.session.commit()
+        return ventas_eliminadas
