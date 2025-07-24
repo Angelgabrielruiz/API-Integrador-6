@@ -20,3 +20,11 @@ class SensorReadingPostgresRepository(ISensorReadingRepository):
         self.db.commit()
         self.db.refresh(sensor_reading_data)
         return sensor_reading_data
+    
+    # NUEVO: Implementación para eliminar sensores por tipo
+    def delete_by_sensor_type(self, sensor_type: str) -> int:
+        deleted_count = self.db.query(SensorReading).filter(
+            SensorReading.sensor_type == sensor_type
+        ).delete()
+        self.db.commit()
+        return deleted_count

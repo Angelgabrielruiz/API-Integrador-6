@@ -17,3 +17,15 @@ class SensorUseCase:
 
     def get_all_sensor_readings(self):
         return self.sensor_reading_repository.find_all()
+    
+    # NUEVO: Método para eliminar sensores de moneda
+    def delete_coin_sensors(self) -> int:
+        """Elimina todos los registros de sensores de tipo 'moneda'"""
+        deleted_count = self.sensor_reading_repository.delete_by_sensor_type("moneda")
+        return deleted_count
+    
+    # NUEVO: Método genérico para eliminar por tipo de sensor
+    def delete_sensors_by_type(self, sensor_type: str) -> int:
+        """Elimina todos los registros de sensores del tipo especificado"""
+        deleted_count = self.sensor_reading_repository.delete_by_sensor_type(sensor_type)
+        return deleted_count

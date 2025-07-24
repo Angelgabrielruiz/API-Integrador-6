@@ -16,3 +16,8 @@ class ISensorReadingRepository(ABC):
     @abstractmethod
     def save(self, sensor_reading_data: SensorReading) -> SensorReading:
         pass
+    
+    # NUEVO: Método para eliminar sensores por tipo
+    @abstractmethod
+    def delete_by_sensor_type(self, sensor_type: str) -> int:
+        pass
