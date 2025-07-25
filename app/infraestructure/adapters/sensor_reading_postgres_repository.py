@@ -13,7 +13,8 @@ class SensorReadingPostgresRepository(ISensorReadingRepository):
         return self.db.query(SensorReading).filter(SensorReading.id == sensor_reading_id).first()
 
     def find_all(self) -> List[SensorReading]:
-        return self.db.query(SensorReading).all()
+        # CORREGIDO: Ordenar por timestamp ascendente (más antiguos primero, más recientes al final)
+        return self.db.query(SensorReading).order_by(SensorReading.timestamp.asc()).all()
 
     def save(self, sensor_reading_data: SensorReading) -> SensorReading:
         self.db.add(sensor_reading_data)
