@@ -50,4 +50,6 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_text()
             await websocket_manager.broadcast(data)
     except WebSocketDisconnect:
-        websocket_manager.disconnect(websocket)
+        pass
+    finally:
+        await websocket_manager.disconnect(websocket)

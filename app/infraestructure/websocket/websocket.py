@@ -13,8 +13,12 @@ class WebSocketManager:
         self.active_connections.append(websocket)
         print(f"Nueva conexión WebSocket. Total: {len(self.active_connections)}")
 
-    def disconnect(self, websocket: WebSocket):
+    async def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
+            try:
+                await websocket.close()
+            except Exception:
+                pass
             self.active_connections.remove(websocket)
             print(f"Conexión WebSocket cerrada. Total: {len(self.active_connections)}")
 
@@ -41,7 +45,7 @@ class WebSocketManager:
                 await websocket.send_json(serialized_message)
         except Exception as e:
             print(f"Error enviando mensaje personal: {e}")
-            self.disconnect(websocket)
+            await self.disconnect(websocket)
 
     async def broadcast(self, message: Union[str, Dict[str, Any]]):
         if not self.active_connections:
@@ -71,7 +75,7 @@ class WebSocketManager:
         
         # Remover conexiones desconectadas
         for conn in disconnected:
-            self.disconnect(conn)
+            await self.disconnect(conn)
 
     def get_connection_count(self) -> int:
         return len(self.active_connections)
