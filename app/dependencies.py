@@ -3,37 +3,37 @@ from sqlalchemy.orm import Session
 from app.core.database_deps import get_db_session  # Agregar esta línea
 
 from app.core import db_postgresql as database
-from app.infraestructure.adapters.producto_postgres_repository import ProductoPostgresRepository
+from app.infrastructure.adapters.producto_postgres_repository import ProductoPostgresRepository
 from app.domain.repositories.product_repository import IProductoRepository
 from app.application.useCase.producto_usecase import ProductoUseCase
 
 # Importaciones para Maquina
-from app.infraestructure.adapters.maquina_postgres_repository import MaquinaPostgresRepository
+from app.infrastructure.adapters.maquina_postgres_repository import MaquinaPostgresRepository
 from app.domain.repositories.maquina_repository import IMaquinaRepository
 from app.application.useCase.maquina_usecase import MaquinaUseCase
 
 # Importaciones para Contenedor
-from app.infraestructure.adapters.contenedor_postgres_repository import ContenedorPostgresRepository
+from app.infrastructure.adapters.contenedor_postgres_repository import ContenedorPostgresRepository
 from app.domain.repositories.contenedor_repository import IContenedorRepository
 from app.application.useCase.contenedor_usecase import ContenedorUseCase
 
 # Importaciones para SensorReading
-from app.infraestructure.adapters.sensor_reading_postgres_repository import SensorReadingPostgresRepository
+from app.infrastructure.adapters.sensor_reading_postgres_repository import SensorReadingPostgresRepository
 from app.domain.repositories.sensor_reading_repository import ISensorReadingRepository
 from app.application.useCase.sensor_usecase import SensorUseCase
 
 # Importaciones para Usuario y Auth
-from app.infraestructure.adapters.usuario_postgres_repository import UsuarioPostgresRepository
+from app.infrastructure.adapters.usuario_postgres_repository import UsuarioPostgresRepository
 from app.domain.repositories.usuario_repository import IUsuarioRepository
 from app.application.useCase.auth_usecase import AuthUseCase
 # Importaciones para Venta
-from app.infraestructure.adapters.venta_postgres_repository import VentaPostgresRepository
+from app.infrastructure.adapters.venta_postgres_repository import VentaPostgresRepository
 from app.domain.repositories.venta_repository import IVentaRepository
 from app.application.useCase.venta_usecase import VentaUseCase
 
 # --- Dependencias para Balance ---
 from app.domain.repositories.balance_repository import IBalanceRepository
-from app.infraestructure.adapters.balance_postgres_repository import BalancePostgresRepository
+from app.infrastructure.adapters.balance_postgres_repository import BalancePostgresRepository
 from app.application.useCase.balance_usecase import BalanceUseCase
 
 def get_balance_repository(db: Session = Depends(get_db_session)) -> IBalanceRepository:

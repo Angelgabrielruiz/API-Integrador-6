@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from app.application.useCase.auth_usecase import AuthUseCase
-from app.infraestructure.schemas.usuario_schema import UsuarioCreate, UsuarioLogin, Token, UsuarioSchema
+from app.infrastructure.schemas.usuario_schema import UsuarioCreate, UsuarioLogin, Token, UsuarioSchema
 from app.dependencies import get_auth_use_case
-from app.infraestructure.middleware.auth_middleware import get_current_user, require_admin  # Agregar require_admin
+from app.infrastructure.middleware.auth_middleware import get_current_user, require_admin  # Agregar require_admin
 from app.domain.entities.usuario import Usuario
 
 router = APIRouter()

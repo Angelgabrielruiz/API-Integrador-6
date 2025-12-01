@@ -3,7 +3,7 @@ from datetime import datetime
 from app.domain.repositories.venta_repository import IVentaRepository
 from app.domain.repositories.product_repository import IProductoRepository
 from app.domain.entities.venta import Venta
-from app.infraestructure.schemas.venta_schema import VentaCreate
+from app.infrastructure.schemas.venta_schema import VentaCreate
 from fastapi import HTTPException
 
 class VentaUseCase:

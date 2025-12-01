@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from typing import Optional
 from sqlalchemy.orm import Session
 from app.core.database_deps import get_db_session  # Cambiar esta línea
-from app.infraestructure.adapters.usuario_postgres_repository import UsuarioPostgresRepository
-from app.infraestructure.schemas.usuario_schema import TokenData
+from app.infrastructure.adapters.usuario_postgres_repository import UsuarioPostgresRepository
+from app.infrastructure.schemas.usuario_schema import TokenData
 from app.domain.entities.usuario import Usuario
 
 # Configuración JWT

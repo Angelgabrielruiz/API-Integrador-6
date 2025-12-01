@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException, status, File, UploadFile,
 from typing import List, Optional
 import uuid
 from app.application.useCase.producto_usecase import ProductoUseCase
-from app.infraestructure.schemas.producto_schema import ProductoCreate, ProductoSchema, ProductoUpdate
+from app.infrastructure.schemas.producto_schema import ProductoCreate, ProductoSchema, ProductoUpdate
 from app.dependencies import get_producto_use_case
-from app.infraestructure.middleware.auth_middleware import require_admin, require_client_or_admin
+from app.infrastructure.middleware.auth_middleware import require_admin, require_client_or_admin
 from app.domain.entities.usuario import Usuario
-from app.infraestructure.services.cloudinary_service import CloudinaryService
+from app.infrastructure.services.cloudinary_service import CloudinaryService
 
 router = APIRouter()
 cloudinary_service = CloudinaryService()

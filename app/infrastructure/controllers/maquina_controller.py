@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 from app.application.useCase.maquina_usecase import MaquinaUseCase
-from app.infraestructure.schemas.maquina_schema import MaquinaCreate, MaquinaSchema, MaquinaUpdate
+from app.infrastructure.schemas.maquina_schema import MaquinaCreate, MaquinaSchema, MaquinaUpdate
 from app.dependencies import get_maquina_use_case
 
 router = APIRouter()

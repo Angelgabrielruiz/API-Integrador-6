@@ -1,6 +1,6 @@
 from app.domain.repositories.sensor_reading_repository import ISensorReadingRepository
 from app.domain.entities.sensor_reading import SensorReading
-from app.infraestructure.schemas.sensor_reading_schema import SensorReadingCreate
+from app.infrastructure.schemas.sensor_reading_schema import SensorReadingCreate
 
 class SensorUseCase:
     def __init__(self, sensor_reading_repository: ISensorReadingRepository):

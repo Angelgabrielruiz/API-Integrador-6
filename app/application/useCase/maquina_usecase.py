@@ -1,7 +1,7 @@
 from typing import List, Optional
 from app.domain.repositories.maquina_repository import IMaquinaRepository
 from app.domain.entities.maquina import Maquina
-from app.infraestructure.schemas.maquina_schema import MaquinaCreate, MaquinaUpdate
+from app.infrastructure.schemas.maquina_schema import MaquinaCreate, MaquinaUpdate
 
 class MaquinaUseCase:
     

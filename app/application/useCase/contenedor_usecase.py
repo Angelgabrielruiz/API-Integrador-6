@@ -1,7 +1,7 @@
 from typing import List, Optional
 from app.domain.repositories.contenedor_repository import IContenedorRepository
 from app.domain.entities.contenedor import Contenedor
-from app.infraestructure.schemas.contenedor_schema import ContenedorCreate, ContenedorUpdate, DispensarRequest
+from app.infrastructure.schemas.contenedor_schema import ContenedorCreate, ContenedorUpdate, DispensarRequest
 
 class ContenedorUseCase:
     

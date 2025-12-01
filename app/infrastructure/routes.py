@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 # Importa los enrutadores de los controladores
 from .controllers import producto_controller, maquina_controller, contenedor_controller, sensor_controller, valvula_controller, venta_controller, balance_controller
-from app.infraestructure.controllers import balance_controller
+from app.infrastructure.controllers import balance_controller
 
 api_router = APIRouter()
 

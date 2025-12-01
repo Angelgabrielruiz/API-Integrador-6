@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from app.infraestructure.schemas.valvula_schema import ValvulaRequest, ValvulaResponse
+from app.infrastructure.schemas.valvula_schema import ValvulaRequest, ValvulaResponse
 from app.application.useCase.contenedor_usecase import ContenedorUseCase
 from app.dependencies import get_contenedor_use_case
 import paho.mqtt.client as mqtt

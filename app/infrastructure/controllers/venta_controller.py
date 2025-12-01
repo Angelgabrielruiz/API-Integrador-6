@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from typing import List, Optional
 from datetime import datetime
 from app.application.useCase.venta_usecase import VentaUseCase
-from app.infraestructure.schemas.venta_schema import VentaCreate, VentaSchema, VentaResponse
+from app.infrastructure.schemas.venta_schema import VentaCreate, VentaSchema, VentaResponse
 from app.dependencies import get_venta_use_case
 
 router = APIRouter()

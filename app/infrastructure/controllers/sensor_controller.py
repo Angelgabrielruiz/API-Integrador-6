@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 from typing import List
 from app.application.useCase.sensor_usecase import SensorUseCase
-from app.infraestructure.schemas.sensor_reading_schema import SensorReadingCreate, SensorReadingSchema
+from app.infrastructure.schemas.sensor_reading_schema import SensorReadingCreate, SensorReadingSchema
 from app.dependencies import get_sensor_use_case
-from app.infraestructure.websocket.manager import websocket_manager
-from app.infraestructure.middleware.auth_middleware import require_admin
+from app.infrastructure.websocket.manager import websocket_manager
+from app.infrastructure.middleware.auth_middleware import require_admin
 from app.domain.entities.usuario import Usuario
 from decimal import Decimal
 

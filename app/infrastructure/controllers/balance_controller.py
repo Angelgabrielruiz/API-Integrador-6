@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from app.application.useCase.balance_usecase import BalanceUseCase
-from app.infraestructure.schemas.balance_schema import BalanceSchema, AgregarCreditoRequest, ModificarBalanceRequest
+from app.infrastructure.schemas.balance_schema import BalanceSchema, AgregarCreditoRequest, ModificarBalanceRequest
 from app.dependencies import get_balance_use_case
 
 router = APIRouter()

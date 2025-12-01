@@ -2,8 +2,8 @@ from typing import List, Optional
 from app.domain.repositories.product_repository import IProductoRepository
 from app.domain.repositories.venta_repository import IVentaRepository  # NUEVO
 from app.domain.entities.producto import Producto
-from app.infraestructure.schemas.producto_schema import ProductoCreate, ProductoUpdate
-from app.infraestructure.services.cloudinary_service import CloudinaryService
+from app.infrastructure.schemas.producto_schema import ProductoCreate, ProductoUpdate
+from app.infrastructure.services.cloudinary_service import CloudinaryService
 
 class ProductoUseCase:
     

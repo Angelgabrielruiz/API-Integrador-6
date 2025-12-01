@@ -1,4 +1,4 @@
-from app.infraestructure.websocket.manager import websocket_manager
+from app.infrastructure.websocket.manager import websocket_manager
 import logging
 
 from fastapi import FastAPI
@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Importaciones de la Arquitectura
 from app.core import db_postgresql as database
-from app.infraestructure import routes
+from app.infrastructure import routes
 from app.domain.entities.maquina import Maquina
 from app.domain.entities.producto import Producto
 from app.domain.entities.contenedor import Contenedor
@@ -16,7 +16,7 @@ from app.domain.entities.usuario import Usuario
 from app.domain.entities.venta import Venta  # Agregar esta línea
 from app.domain.entities.balance import Balance  # NUEVO
 
-from app.infraestructure.controllers import auth_controller
+from app.infrastructure.controllers import auth_controller
 
 # Crea las tablas en la base de datos al iniciar (si no existen)
 logging.basicConfig(

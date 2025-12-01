@@ -2,8 +2,8 @@ from typing import Optional
 from fastapi import HTTPException, status
 from app.domain.repositories.usuario_repository import IUsuarioRepository
 from app.domain.entities.usuario import Usuario
-from app.infraestructure.schemas.usuario_schema import UsuarioCreate, UsuarioLogin, Token
-from app.infraestructure.middleware.auth_middleware import create_access_token
+from app.infrastructure.schemas.usuario_schema import UsuarioCreate, UsuarioLogin, Token
+from app.infrastructure.middleware.auth_middleware import create_access_token
 from datetime import timedelta
 
 class AuthUseCase:
@@ -65,7 +65,7 @@ class AuthUseCase:
             expires_delta=access_token_expires
         )
         
-        from app.infraestructure.schemas.usuario_schema import UsuarioSchema
+        from app.infrastructure.schemas.usuario_schema import UsuarioSchema
         user_schema = UsuarioSchema.from_orm(user)
         
         return Token(
