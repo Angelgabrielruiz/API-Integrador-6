@@ -3,15 +3,20 @@ from typing import List, Dict, Any, Union
 import json
 from datetime import datetime
 from decimal import Decimal
+import logging
 
 class WebSocketManager:
     def __init__(self):
         self.active_connections: List[WebSocket] = []
+        self.logger = logging.getLogger(__name__)
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
-        print(f"Nueva conexión WebSocket. Total: {len(self.active_connections)}")
+        self.logger.info(
+            "websocket_connected",
+            extra={"connection_count": len(self.active_connections)}
+        )
 
     async def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
@@ -20,7 +25,10 @@ class WebSocketManager:
             except Exception:
                 pass
             self.active_connections.remove(websocket)
-            print(f"Conexión WebSocket cerrada. Total: {len(self.active_connections)}")
+            self.logger.info(
+                "websocket_disconnected",
+                extra={"connection_count": len(self.active_connections)}
+            )
 
     def _serialize_data(self, data: Any) -> Any:
         """Convierte tipos no serializables a tipos compatibles con JSON"""
@@ -44,7 +52,10 @@ class WebSocketManager:
                 serialized_message = self._serialize_data(message)
                 await websocket.send_json(serialized_message)
         except Exception as e:
-            print(f"Error enviando mensaje personal: {e}")
+            self.logger.error(
+                "websocket_personal_message_error",
+                extra={"error": str(e)}
+            )
             await self.disconnect(websocket)
 
     async def broadcast(self, message: Union[str, Dict[str, Any]]):
@@ -70,7 +81,10 @@ class WebSocketManager:
             try:
                 await connection.send_json(serialized_message)
             except Exception as e:
-                print(f"Error enviando mensaje: {e}")
+                self.logger.error(
+                    "websocket_broadcast_error",
+                    extra={"error": str(e)}
+                )
                 disconnected.append(connection)
         
         # Remover conexiones desconectadas

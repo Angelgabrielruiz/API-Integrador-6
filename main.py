@@ -1,4 +1,5 @@
 from app.infraestructure.websocket.manager import websocket_manager
+import logging
 
 from fastapi import FastAPI
 from fastapi import WebSocket, WebSocketDisconnect
@@ -18,6 +19,10 @@ from app.domain.entities.balance import Balance  # NUEVO
 from app.infraestructure.controllers import auth_controller
 
 # Crea las tablas en la base de datos al iniciar (si no existen)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s %(message)s"
+)
 database.create_db_and_tables()
 
 app = FastAPI(
