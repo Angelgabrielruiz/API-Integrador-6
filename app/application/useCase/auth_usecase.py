@@ -27,6 +27,13 @@ class AuthUseCase:
                 detail="Email already registered"
             )
         
+        # Validación de contraseña mínima
+        if not user_data.password or len(user_data.password) < 4:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Password must be at least 4 characters"
+            )
+        
         # Crear nuevo usuario
         usuario = Usuario(
             username=user_data.username,

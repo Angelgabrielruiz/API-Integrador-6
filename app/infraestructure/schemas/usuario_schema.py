@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import datetime
 
@@ -8,7 +8,7 @@ class UsuarioBase(BaseModel):
     role: str = "administrador"  # Cambiado de "cliente" a "administrador"
 
 class UsuarioCreate(UsuarioBase):
-    password: str
+    password: str = Field(min_length=4)
 
 class UsuarioLogin(BaseModel):
     username: str
